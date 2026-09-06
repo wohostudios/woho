@@ -1,12 +1,608 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WOHO Studios</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>WOHO Studios | Independent Game Studio</title>
+
+    <meta name="description"
+          content="WOHO Studios is an independent game development studio creating immersive interactive experiences.">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #07090d;
+            --bg-soft: #0d1118;
+            --card: #111720;
+            --text: #f5f7fa;
+            --muted: #9ba5b4;
+            --accent: #5ee7ff;
+            --accent-2: #8075ff;
+            --border: rgba(255,255,255,.08);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                         Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* NAVIGATION */
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 76px;
+            z-index: 1000;
+
+            display: flex;
+            align-items: center;
+
+            background: rgba(7, 9, 13, .78);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            width: min(1200px, 90%);
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.35rem;
+            letter-spacing: .08em;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 34px;
+            color: var(--muted);
+            font-size: .94rem;
+        }
+
+        .nav-links a {
+            transition: .25s;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+            padding: 120px 20px 70px;
+
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 750px;
+            height: 750px;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(94,231,255,.14),
+                    rgba(128,117,255,.06) 35%,
+                    transparent 70%
+                );
+
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            max-width: 950px;
+        }
+
+        .eyebrow {
+            display: inline-block;
+
+            color: var(--accent);
+            border: 1px solid rgba(94,231,255,.25);
+            background: rgba(94,231,255,.05);
+
+            padding: 7px 15px;
+            border-radius: 100px;
+
+            font-size: .78rem;
+            font-weight: 700;
+            letter-spacing: .14em;
+
+            margin-bottom: 28px;
+        }
+
+        h1 {
+            font-size: clamp(3.4rem, 9vw, 7.5rem);
+            line-height: .92;
+            letter-spacing: -.055em;
+            font-weight: 900;
+        }
+
+        h1 span {
+            background:
+                linear-gradient(90deg, var(--accent), var(--accent-2));
+
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            max-width: 670px;
+            margin: 30px auto 0;
+
+            color: var(--muted);
+            font-size: clamp(1rem, 2vw, 1.25rem);
+        }
+
+        .buttons {
+            margin-top: 42px;
+
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            padding: 13px 25px;
+            border-radius: 8px;
+
+            font-size: .93rem;
+            font-weight: 700;
+
+            transition: transform .2s, background .2s;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        .primary {
+            background: white;
+            color: #090b0f;
+        }
+
+        .secondary {
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,.035);
+        }
+
+        /* SECTIONS */
+
+        section {
+            padding: 110px 20px;
+        }
+
+        .container {
+            width: min(1100px, 100%);
+            margin: auto;
+        }
+
+        .section-label {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: .78rem;
+            letter-spacing: .15em;
+            margin-bottom: 12px;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 5vw, 3.4rem);
+            line-height: 1.1;
+            letter-spacing: -.035em;
+            margin-bottom: 24px;
+        }
+
+        .section-description {
+            max-width: 700px;
+            color: var(--muted);
+            font-size: 1.08rem;
+        }
+
+        /* ABOUT */
+
+        .about {
+            background: var(--bg-soft);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .about-card {
+            min-height: 340px;
+
+            border: 1px solid var(--border);
+            border-radius: 18px;
+
+            background:
+                radial-gradient(
+                    circle at 20% 20%,
+                    rgba(94,231,255,.10),
+                    transparent 40%
+                ),
+                linear-gradient(
+                    135deg,
+                    #101722,
+                    #090c12
+                );
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 900;
+            letter-spacing: -.06em;
+        }
+
+        .about-card span {
+            color: var(--accent);
+        }
+
+        /* WHAT WE DO */
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-top: 50px;
+        }
+
+        .service {
+            padding: 32px;
+            min-height: 220px;
+
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: var(--card);
+
+            transition: transform .25s, border-color .25s;
+        }
+
+        .service:hover {
+            transform: translateY(-5px);
+            border-color: rgba(94,231,255,.35);
+        }
+
+        .service-number {
+            color: var(--accent);
+            font-size: .75rem;
+            font-weight: 800;
+            letter-spacing: .1em;
+        }
+
+        .service h3 {
+            margin: 28px 0 12px;
+            font-size: 1.25rem;
+        }
+
+        .service p {
+            color: var(--muted);
+            font-size: .94rem;
+        }
+
+        /* CONTACT */
+
+        .contact {
+            text-align: center;
+            background:
+                radial-gradient(
+                    circle at center,
+                    rgba(128,117,255,.08),
+                    transparent 50%
+                );
+        }
+
+        .contact .section-description {
+            margin: auto;
+        }
+
+        .email {
+            display: inline-block;
+            margin-top: 35px;
+
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            font-weight: 700;
+
+            border-bottom: 1px solid var(--accent);
+        }
+
+        /* FOOTER */
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 30px 20px;
+            color: var(--muted);
+            font-size: .85rem;
+        }
+
+        .footer-container {
+            width: min(1100px, 100%);
+            margin: auto;
+
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 750px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 45px;
+            }
+
+            .services {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 80px 20px;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+    </style>
 </head>
+
 <body>
-  <h1>WOHO Studios</h1>
-  <p>Official website.</p>
+
+<nav>
+    <div class="nav-container">
+
+        <a class="logo" href="#">
+            WOHO<span>.</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#work">What We Do</a>
+            <a href="#contact">Contact</a>
+        </div>
+
+    </div>
+</nav>
+
+
+<header class="hero">
+
+    <div class="hero-content">
+
+        <div class="eyebrow">
+            INDEPENDENT GAME STUDIO
+        </div>
+
+        <h1>
+            We create<br>
+            <span>new worlds.</span>
+        </h1>
+
+        <p>
+            WOHO Studios is an independent game development studio
+            focused on creating memorable interactive experiences,
+            immersive worlds and games made with passion.
+        </p>
+
+        <div class="buttons">
+            <a class="button primary" href="#about">
+                Discover WOHO
+            </a>
+
+            <a class="button secondary" href="#contact">
+                Contact Us
+            </a>
+        </div>
+
+    </div>
+
+</header>
+
+
+<section id="about" class="about">
+
+    <div class="container about-grid">
+
+        <div>
+
+            <div class="section-label">
+                ABOUT WOHO
+            </div>
+
+            <h2>
+                Games built with creativity and passion.
+            </h2>
+
+            <p class="section-description">
+                WOHO Studios is an independent game development studio.
+                We explore ideas, technology and interactive design to
+                create experiences that players can remember.
+            </p>
+
+        </div>
+
+        <div class="about-card">
+            WOHO<span>.</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section id="work">
+
+    <div class="container">
+
+        <div class="section-label">
+            WHAT WE DO
+        </div>
+
+        <h2>
+            Building interactive experiences.
+        </h2>
+
+        <p class="section-description">
+            From the first idea to the final experience, our work combines
+            game development, visual design and technology.
+        </p>
+
+
+        <div class="services">
+
+            <div class="service">
+                <div class="service-number">01</div>
+
+                <h3>Game Development</h3>
+
+                <p>
+                    Developing interactive systems, gameplay mechanics
+                    and complete game experiences.
+                </p>
+            </div>
+
+
+            <div class="service">
+                <div class="service-number">02</div>
+
+                <h3>World Building</h3>
+
+                <p>
+                    Creating environments and worlds designed to invite
+                    exploration and memorable player experiences.
+                </p>
+            </div>
+
+
+            <div class="service">
+                <div class="service-number">03</div>
+
+                <h3>Interactive Technology</h3>
+
+                <p>
+                    Exploring modern tools and technologies to create
+                    better and more ambitious interactive experiences.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section id="contact" class="contact">
+
+    <div class="container">
+
+        <div class="section-label">
+            CONTACT
+        </div>
+
+        <h2>
+            Let's create something memorable.
+        </h2>
+
+        <p class="section-description">
+            For business inquiries, collaborations or information
+            about WOHO Studios, get in touch with us.
+        </p>
+
+        <a class="email"
+           href="mailto:wohostudios@gmail.com">
+            wohostudios@gmail.com
+        </a>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <div class="footer-container">
+
+        <div>
+            © <span id="year"></span> WOHO Studios.
+            All rights reserved.
+        </div>
+
+        <div>
+            <a href="privacy.html">Privacy Policy</a>
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script>
+    document.getElementById("year").textContent =
+        new Date().getFullYear();
+</script>
+
 </body>
 </html>
